@@ -7,12 +7,12 @@ module Entity.WordSetWord where
 import Prelude hiding (Word, id)
 import Data.Text (Text)
 import GHC.Generics (Generic)
-import Database.Selda (ID, SqlRow, Table, table, Attr((:-)), autoPrimary)
+import Database.Selda (ID, SqlRow, Table, table, Attr((:-)), foreignKey)
 import Data.Aeson (ToJSON, FromJSON)
 
 import IDAesonInstances
-import Entity.Word (Word)
-import Entity.WordSet (WordSet)
+import Entity.Word (Word, wordsTable)
+import Entity.WordSet (WordSet, wordSetsTable)
 
 data WordSetWord = WordSetWord
   { wordset :: ID WordSet
@@ -22,4 +22,7 @@ data WordSetWord = WordSetWord
 instance SqlRow WordSetWord
 
 wordSetWordsTable :: Table WordSetWord
-wordSetWordsTable = table "wordset_words" []
+wordSetWordsTable = table "wordset_words"
+  [ #wordset :- foreignKey wordSetsTable #id
+  , #word    :- foreignKey wordsTable #id
+  ]

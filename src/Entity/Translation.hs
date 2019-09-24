@@ -6,13 +6,16 @@
 
 module Entity.Translation where
 
-import Prelude hiding (id)
+import Prelude hiding (Word, id)
 import Data.Text (Text)
 import GHC.Generics (Generic)
-import Database.Selda (ID, SqlRow, Table, table, Attr((:-)), autoPrimary)
+import Database.Selda (ID, SqlRow, Table, table, Attr((:-)), autoPrimary, foreignKey)
 import Data.Aeson (ToJSON, FromJSON)
 
 import IDAesonInstances
+
+import Entity.User (usersTable)
+import Entity.Word (Word, wordsTable)
 
 data Translation = Translation
   { id       :: ID Translation
@@ -35,7 +38,11 @@ instance ToJSON Translation
 instance FromJSON TranslationW
 
 translationsTable :: Table Translation
-translationsTable = table "translations" [#id :- autoPrimary]
+translationsTable = table "translations"
+  [ #id       :- autoPrimary
+  , #word     :- foreignKey wordsTable #id
+  , #added_by :- foreignKey usersTable #id
+  ]
 
 fromTranslationW :: ID Translation -> TranslationW -> Translation
 fromTranslationW trId TranslationW { word, text, language, added_by } =

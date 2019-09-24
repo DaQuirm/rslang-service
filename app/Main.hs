@@ -12,12 +12,14 @@ import API.User (UserAPI, userAPI)
 import API.Translation (TranslationAPI, translationAPI)
 import API.Word (WordAPI, wordAPI)
 import API.WordSet (WordSetAPI, wordSetAPI)
+import API.DBSchema (DBSchemaAPI, dbSchemaAPI)
 
 type ServiceAPI
   =    UserAPI
   :<|> WordAPI
   :<|> WordSetAPI
   :<|> TranslationAPI
+  :<|> DBSchemaAPI
 
 serviceAPI :: Proxy ServiceAPI
 serviceAPI = Proxy
@@ -29,6 +31,7 @@ main = do
         :<|> wordAPI
         :<|> wordSetAPI
         :<|> translationAPI
+        :<|> dbSchemaAPI
 
       app = serve serviceAPI server
   run 3000 app
