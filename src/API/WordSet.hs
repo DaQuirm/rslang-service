@@ -17,6 +17,7 @@ import RequiredQueryParam (RequiredQueryParam)
 import Database.Selda (query, select, restrict, insertWithPK, insert_, def, (!), (.==), literal, toId, second, (:*:)((:*:)))
 import Database.Selda.PostgreSQL (withPostgreSQL, on)
 
+import PostgresConnectionSettings (connectionSettings)
 import Entity.Word (wordsTable)
 import Entity.WordSet (WordSet(WordSet), wordSetsTable, created_by, id)
 import Entity.WordSetWord (WordSetWord(WordSetWord), wordSetWordsTable)
@@ -36,7 +37,7 @@ wordSetAPI
   where
     getWordSet :: Int -> Handler (Maybe WordSetWordsR)
     getWordSet wsId = do
-      withPostgreSQL ("lang" `on` "localhost") $ do
+      withPostgreSQL connectionSettings $ do
         ps <- query $ do
           wordSet <- select wordSetsTable
           restrict $ wordSet ! #id .== (literal $ toId wsId)
@@ -53,7 +54,7 @@ wordSetAPI
 
     getUserWordSets :: Text -> Handler [WordSetWordsR]
     getUserWordSets userId = do
-        withPostgreSQL ("lang" `on` "localhost") $ do
+        withPostgreSQL connectionSettings $ do
           ps <- query $ do
             wordSet <- select wordSetsTable
             restrict $ wordSet ! #created_by .== (literal $ userId)
@@ -76,7 +77,7 @@ wordSetAPI
 
     addWordSet :: WordSetWordsW -> Handler ()
     addWordSet (WordSetWordsW createdBy wordIds) = do
-      withPostgreSQL ("lang" `on` "localhost") $ do
+      withPostgreSQL connectionSettings $ do
         wordSetId <- insertWithPK wordSetsTable [WordSet def createdBy]
         let mkWordSetWordEntry wordId = WordSetWord wordSetId wordId
         insert_ wordSetWordsTable (mkWordSetWordEntry <$> wordIds)

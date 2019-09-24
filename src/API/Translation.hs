@@ -13,6 +13,7 @@ import RequiredQueryParam (RequiredQueryParam)
 import Database.Selda (ID, query, limit, select, restrict, (!), (.==), literal, toId, text, insertWithPK, def)
 import Database.Selda.PostgreSQL (withPostgreSQL, on)
 
+import PostgresConnectionSettings (connectionSettings)
 import Entity.Translation (Translation, TranslationW, translationsTable, fromTranslationW)
 
 type TranslationAPI
@@ -29,7 +30,7 @@ translationAPI
   where
     getTranslation :: Int -> Handler Translation
     getTranslation translationId = do
-      withPostgreSQL ("lang" `on` "localhost") $ do
+      withPostgreSQL connectionSettings $ do
         fmap head $ query $ limit 0 1 $ do
           translation <- select translationsTable
           restrict (translation ! #id .== (literal $ toId translationId))
@@ -37,7 +38,7 @@ translationAPI
 
     getTranslations :: Text -> Handler [Translation]
     getTranslations userId = do
-      withPostgreSQL ("lang" `on` "localhost") $ do
+      withPostgreSQL connectionSettings $ do
         query $ do
           translation <- select translationsTable
           restrict (translation ! #added_by .== text userId)
@@ -45,6 +46,6 @@ translationAPI
 
     addTranslation :: TranslationW -> Handler (ID Translation)
     addTranslation translation = do
-      withPostgreSQL ("lang" `on` "localhost") $ do
+      withPostgreSQL connectionSettings $ do
         insertWithPK translationsTable [fromTranslationW def translation]
 

@@ -16,6 +16,7 @@ import RequiredQueryParam (RequiredQueryParam)
 import Database.Selda (ID, query, limit, select, restrict, (!), (.==), literal, toId, text, insertWithPK, def)
 import Database.Selda.PostgreSQL (withPostgreSQL, on)
 
+import PostgresConnectionSettings (connectionSettings)
 import Entity.Word (Word(Word), WordW(WordW), wordsTable, fromWordW)
 
 type WordAPI
@@ -54,7 +55,7 @@ wordAPI
   where
     getWord :: Int -> Handler Word
     getWord wordId =
-      withPostgreSQL ("lang" `on` "localhost") $ do
+      withPostgreSQL connectionSettings $ do
         fmap head $ query $ limit 0 1 $ do
           word <- select wordsTable
           restrict (word ! #id .== (literal $ toId wordId))
@@ -62,7 +63,7 @@ wordAPI
 
     getWords :: Text -> Handler [Word]
     getWords userId = do
-      withPostgreSQL ("lang" `on` "localhost") $ do
+      withPostgreSQL connectionSettings $ do
         query $ do
           word <- select wordsTable
           restrict (word ! #added_by .== text userId)
@@ -70,5 +71,5 @@ wordAPI
 
     addWord :: WordW -> Handler (ID Word)
     addWord word = do
-      withPostgreSQL ("lang" `on` "localhost") $ do
+      withPostgreSQL connectionSettings $ do
         insertWithPK wordsTable [fromWordW def word]
