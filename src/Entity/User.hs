@@ -10,8 +10,6 @@ import GHC.Generics (Generic)
 import Data.Aeson (ToJSON, FromJSON)
 import Database.Selda (SqlRow, Table, table, Attr((:-)), primary)
 
-import IDAesonInstances
-
 data User = User
   { id :: Text
   } deriving (Show, Generic)

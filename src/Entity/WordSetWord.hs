@@ -10,7 +10,6 @@ import GHC.Generics (Generic)
 import Database.Selda (ID, SqlRow, Table, table, Attr((:-)), foreignKey)
 import Data.Aeson (ToJSON, FromJSON)
 
-import IDAesonInstances
 import Entity.Word (Word, wordsTable)
 import Entity.WordSet (WordSet, wordSetsTable)
 

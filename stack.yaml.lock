@@ -3,7 +3,21 @@
 # For more information, please see the documentation at:
 #   https://docs.haskellstack.org/en/stable/lock_files
 
-packages: []
+packages:
+- completed:
+    hackage: selda-0.5.0.0@sha256:90fb7e38054f7d6dde6d0c62cd91d2b0bb9bccd98b31b0b2baeec81717bad62f,2997
+    pantry-tree:
+      size: 2462
+      sha256: bf69042d1ced302355f7798371436c89594c1253cdeb56437deeee7b83f79b17
+  original:
+    hackage: selda-0.5.0.0
+- completed:
+    hackage: selda-json-0.1.1.0@sha256:01cd15cc70ed5b337004862d9e79472fdd487e3b6efd20aac9b401c44b254009,825
+    pantry-tree:
+      size: 220
+      sha256: 14fd98c46deedc500303486ba09f7ec2a38722d9291b5dd07e534eade4edb478
+  original:
+    hackage: selda-json-0.1.1.0
 snapshots:
 - completed:
     size: 524104

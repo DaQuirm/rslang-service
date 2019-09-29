@@ -10,9 +10,8 @@ import Prelude hiding (Word, id)
 import Data.Text (Text)
 import GHC.Generics (Generic)
 import Database.Selda (ID, SqlRow, Table, table, Attr((:-)), autoPrimary, foreignKey)
+import Database.Selda.JSON
 import Data.Aeson (ToJSON, FromJSON)
-
-import IDAesonInstances
 
 import Entity.User (usersTable)
 
@@ -23,17 +22,15 @@ data Word = Word
   , added_by :: Text
   } deriving (Show, Generic)
 
+instance SqlRow Word
+instance ToJSON Word
+
 data WordW = WordW
   { string   :: Text
   , language :: Text
   , added_by :: Text
   } deriving (Show, Generic)
 
-instance SqlRow Word
-
-instance ToJSON Word
-
-instance ToJSON WordW
 instance FromJSON WordW
 
 wordsTable :: Table Word

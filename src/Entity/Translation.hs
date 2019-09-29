@@ -12,8 +12,6 @@ import GHC.Generics (Generic)
 import Database.Selda (ID, SqlRow, Table, table, Attr((:-)), autoPrimary, foreignKey)
 import Data.Aeson (ToJSON, FromJSON)
 
-import IDAesonInstances
-
 import Entity.User (usersTable)
 import Entity.Word (Word, wordsTable)
 
@@ -26,6 +24,7 @@ data Translation = Translation
   } deriving (Show, Generic)
 
 instance SqlRow Translation
+instance ToJSON Translation
 
 data TranslationW = TranslationW
   { word     :: ID Word
@@ -34,7 +33,6 @@ data TranslationW = TranslationW
   , added_by :: Text
   } deriving (Show, Generic)
 
-instance ToJSON Translation
 instance FromJSON TranslationW
 
 translationsTable :: Table Translation
