@@ -28,8 +28,10 @@ dependencies:
 - wai
 - warp
 - servant-server
-- servant-docs
+- servant-swagger
 - aeson
+- lens
+- swagger2
 
 library:
   source-dirs: src

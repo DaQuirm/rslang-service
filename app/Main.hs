@@ -13,6 +13,7 @@ import API.Translation (TranslationAPI, translationAPI)
 import API.Word (WordAPI, wordAPI)
 import API.WordSet (WordSetAPI, wordSetAPI)
 import API.DBSchema (DBSchemaAPI, dbSchemaAPI)
+import API.Swagger (SwaggerAPI, swaggerAPI)
 
 type ServiceAPI
   =    UserAPI
@@ -20,6 +21,7 @@ type ServiceAPI
   :<|> WordSetAPI
   :<|> TranslationAPI
   :<|> DBSchemaAPI
+  :<|> SwaggerAPI
 
 serviceAPI :: Proxy ServiceAPI
 serviceAPI = Proxy
@@ -32,6 +34,7 @@ main = do
         :<|> wordSetAPI
         :<|> translationAPI
         :<|> dbSchemaAPI
+        :<|> pure swaggerAPI
 
       app = serve serviceAPI server
   run 3000 app

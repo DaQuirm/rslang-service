@@ -12,22 +12,18 @@ import Database.Selda (ID, SqlRow)
 import Entity.Word (Word)
 import Entity.WordSet (WordSet)
 
-data WordSetWords = WordSetWords
-  { id         :: ID WordSet
-  , created_by :: Text
-  , words      :: [ID Word]
-  } deriving (Show, Generic)
-
 data WordSetWordsR = WordSetWordsR
   { id          :: ID WordSet
   , created_by  :: Text
   , words       :: [Word]
   } deriving (Show, Generic)
 
+instance ToJSON (WordSetWordsR)
+
 data WordSetWordsW = WordSetWordsW
   { created_by  :: Text
   , words       :: [ID Word]
   } deriving (Show, Generic)
 
-instance ToJSON (WordSetWordsR)
+instance ToJSON (WordSetWordsW)
 instance FromJSON (WordSetWordsW)

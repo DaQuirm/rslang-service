@@ -34,6 +34,7 @@ data TranslationW = TranslationW
   } deriving (Show, Generic)
 
 instance FromJSON TranslationW
+instance ToJSON TranslationW
 
 translationsTable :: Table Translation
 translationsTable = table "translations"
