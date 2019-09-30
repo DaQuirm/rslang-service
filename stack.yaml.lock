@@ -12,6 +12,13 @@ packages:
   original:
     hackage: selda-0.5.0.0
 - completed:
+    hackage: selda-postgresql-0.1.8.0@sha256:19ffaf87fd762cbb284afc74d33cf4d90a1b2816febed4353dbd34c429287d7d,1418
+    pantry-tree:
+      size: 316
+      sha256: 716987990e3e1043f574d7216a6486ac0da659306e75d6294663059f1f3a62b0
+  original:
+    hackage: selda-postgresql-0.1.8.0
+- completed:
     hackage: selda-json-0.1.1.0@sha256:01cd15cc70ed5b337004862d9e79472fdd487e3b6efd20aac9b401c44b254009,825
     pantry-tree:
       size: 220
