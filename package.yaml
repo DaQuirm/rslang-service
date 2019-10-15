@@ -32,6 +32,11 @@ dependencies:
 - aeson
 - lens
 - swagger2
+- transformers
+- mtl
+- containers
+- resource-pool
+- monad-control
 
 library:
   source-dirs: src

@@ -14,7 +14,7 @@ import API.Doc.WordSet (wordSetAPISwagger)
 type SwaggerAPI = "swagger.json" :> Get '[JSON] Swagger
 
 swaggerAPI
-  =   translationAPISwagger
+  =  translationAPISwagger
   <> userAPISwagger
   <> wordAPISwagger
   <> wordSetAPISwagger

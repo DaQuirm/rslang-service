@@ -12,7 +12,8 @@ import Servant (type (:>), Post, JSON, Handler, (:<|>)(..))
 import Database.Selda (tryCreateTable)
 import Database.Selda.PostgreSQL (withPostgreSQL, on)
 
-import PostgresConnectionSettings (connectionSettings)
+import ServiceState (tick)
+import App (AppT, API, modifyState)
 
 import Entity.Translation (translationsTable)
 import Entity.User (usersTable)
@@ -22,15 +23,17 @@ import Entity.WordSetWord (wordSetWordsTable)
 
 type DBSchemaAPI = "schema" :> "init" :> Post '[JSON] Text
 
+dbSchemaAPI :: API DBSchemaAPI
 dbSchemaAPI = initSchema
   where
-    initSchema :: Handler Text
+    initSchema :: AppT Handler Text
     initSchema = do
-      withPostgreSQL connectionSettings $ do
-        tryCreateTable usersTable
-        tryCreateTable wordsTable
-        tryCreateTable wordsTable
-        tryCreateTable wordSetsTable
-        tryCreateTable wordSetWordsTable
+      modifyState $ tick "initSchema"
+
+      tryCreateTable usersTable
+      tryCreateTable wordsTable
+      tryCreateTable wordsTable
+      tryCreateTable wordSetsTable
+      tryCreateTable wordSetWordsTable
 
       pure "Initialisation complete"

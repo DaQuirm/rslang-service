@@ -13,7 +13,8 @@ import RequiredQueryParam (RequiredQueryParam)
 import Database.Selda (ID, query, limit, select, restrict, (!), (.==), literal, toId, text, insertWithPK, def)
 import Database.Selda.PostgreSQL (withPostgreSQL, on)
 
-import PostgresConnectionSettings (connectionSettings)
+import ServiceState (tick)
+import App (API, AppT, modifyState)
 import Entity.Translation (Translation, TranslationW, translationsTable, fromTranslationW)
 
 type TranslationAPI
@@ -23,29 +24,30 @@ type TranslationAPI
     :<|> ReqBody '[JSON] TranslationW :> Post '[JSON] (ID Translation)
     )
 
+translationAPI :: API TranslationAPI
 translationAPI
   =    getTranslation
   :<|> getTranslations
   :<|> addTranslation
   where
-    getTranslation :: Int -> Handler Translation
+    getTranslation :: Int -> AppT Handler Translation
     getTranslation translationId = do
-      withPostgreSQL connectionSettings $ do
-        fmap head $ query $ limit 0 1 $ do
-          translation <- select translationsTable
-          restrict (translation ! #id .== (literal $ toId translationId))
-          return translation
+      modifyState $ tick "getTranslation"
+      fmap head $ query $ limit 0 1 $ do
+        translation <- select translationsTable
+        restrict (translation ! #id .== (literal $ toId translationId))
+        return translation
 
-    getTranslations :: Text -> Handler [Translation]
+    getTranslations :: Text -> AppT Handler [Translation]
     getTranslations userId = do
-      withPostgreSQL connectionSettings $ do
-        query $ do
-          translation <- select translationsTable
-          restrict (translation ! #added_by .== text userId)
-          return translation
+      modifyState $ tick "getTranslations"
+      query $ do
+        translation <- select translationsTable
+        restrict (translation ! #added_by .== text userId)
+        return translation
 
-    addTranslation :: TranslationW -> Handler (ID Translation)
+    addTranslation :: TranslationW -> AppT Handler (ID Translation)
     addTranslation translation = do
-      withPostgreSQL connectionSettings $ do
-        insertWithPK translationsTable [fromTranslationW def translation]
+      modifyState $ tick "addTranslation"
+      insertWithPK translationsTable [fromTranslationW def translation]
 
