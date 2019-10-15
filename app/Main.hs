@@ -8,7 +8,7 @@ module Main where
 
 import Network.Wai.Handler.Warp (run)
 
-import Servant (type (:>), type (:<|>), Proxy(Proxy), (:<|>)(..), ServerT, hoistServer, Handler)
+import Servant (type (:<|>), Proxy(Proxy), (:<|>)(..), hoistServer, Handler)
 import Servant.Server (serve)
 
 import API.User (UserAPI, userAPI)
