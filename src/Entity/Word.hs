@@ -14,6 +14,7 @@ import Database.Selda.JSON ()
 import Data.Aeson (ToJSON, FromJSON)
 
 import Entity.User (usersTable)
+import Entity.Language (languagesTable)
 
 data Word = Word
   { id       :: ID Word
@@ -36,7 +37,8 @@ instance FromJSON WordW
 
 wordsTable :: Table Word
 wordsTable = table "words"
-  [ #id :- autoPrimary
+  [ #id       :- autoPrimary
+  , #language :- foreignKey languagesTable #code
   , #added_by :- foreignKey usersTable #id
   ]
 

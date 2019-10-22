@@ -35,11 +35,11 @@ dbSchemaAPI = initSchema
       modifyState $ tick "initSchema"
 
       tryCreateTable usersTable
+      tryCreateTable languagesTable
       tryCreateTable wordsTable
       tryCreateTable wordsTable
       tryCreateTable wordSetsTable
       tryCreateTable wordSetWordsTable
-      tryCreateTable languagesTable
 
       decoded <- eitherDecode <$> (liftIO $ ByteString.readFile "./data/languages.json")
       case decoded of
