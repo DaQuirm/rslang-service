@@ -37,6 +37,7 @@ dependencies:
 - containers
 - resource-pool
 - monad-control
+- bytestring
 
 library:
   source-dirs: src
