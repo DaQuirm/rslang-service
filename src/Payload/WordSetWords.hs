@@ -18,12 +18,12 @@ data WordSetWordsR = WordSetWordsR
   , words       :: [Word]
   } deriving (Show, Generic)
 
-instance ToJSON (WordSetWordsR)
+instance ToJSON WordSetWordsR
 
 data WordSetWordsW = WordSetWordsW
   { created_by  :: Text
   , words       :: [ID Word]
   } deriving (Show, Generic)
 
-instance ToJSON (WordSetWordsW)
-instance FromJSON (WordSetWordsW)
+instance ToJSON WordSetWordsW
+instance FromJSON WordSetWordsW
