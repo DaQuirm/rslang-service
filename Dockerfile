@@ -39,5 +39,7 @@ RUN apt-get update
 RUN apt-get -y install libpq5
 
 COPY --from=build /opt/build/bin .
+COPY --from=build /opt/build/data ./data
+
 EXPOSE 3000
 CMD ["/opt/app/rslang-service-exe"]
