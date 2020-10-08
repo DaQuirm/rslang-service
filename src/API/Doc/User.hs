@@ -5,10 +5,9 @@ module API.Doc.User where
 import Control.Lens ((&), (?~), (.~), mapped)
 import Data.Proxy (Proxy(Proxy))
 
-import Database.Selda (toId)
 import Data.Aeson (toJSON)
 
-import Data.Swagger (Swagger, ToSchema(declareNamedSchema), genericDeclareNamedSchema, defaultSchemaOptions, info, license, description, schema, example, title, version, URL(URL), url)
+import Data.Swagger (Swagger, ToSchema(declareNamedSchema), genericDeclareNamedSchema, defaultSchemaOptions, info, description, schema, example, title, version)
 import Servant.Swagger (toSwagger)
 
 import API.Doc.ToSchema ()

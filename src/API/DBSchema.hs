@@ -10,20 +10,19 @@ import qualified Data.ByteString.Lazy as ByteString
 import Data.Aeson (eitherDecode)
 import Control.Monad.IO.Class (liftIO)
 
-import Servant (type (:>), Post, JSON, Handler, (:<|>)(..))
+import Servant (type (:>), Post, JSON, Handler)
 
 import Database.Selda (tryCreateTable, insert_)
-import Database.Selda.PostgreSQL (withPostgreSQL, on)
 
 import ServiceState (tick)
 import App (AppT, API, modifyState)
 
-import Entity.Translation (translationsTable)
 import Entity.User (usersTable)
 import Entity.Word (wordsTable)
 import Entity.WordSet (wordSetsTable)
 import Entity.WordSetWord (wordSetWordsTable)
 import Entity.Language (languagesTable)
+import Entity.Translation (translationsTable)
 
 type DBSchemaAPI = "schema" :> "init" :> Post '[JSON] Text
 
@@ -36,6 +35,7 @@ dbSchemaAPI = initSchema
 
       tryCreateTable usersTable
       tryCreateTable languagesTable
+      tryCreateTable translationsTable
       tryCreateTable wordsTable
       tryCreateTable wordsTable
       tryCreateTable wordSetsTable

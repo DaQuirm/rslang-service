@@ -3,7 +3,7 @@
 
 module API.Swagger where
 
-import Servant (type (:>), JSON, Get, Handler, (:<|>)(..))
+import Servant (type (:>), JSON, Get)
 import Data.Swagger (Swagger)
 
 import API.Doc.Translation (translationAPISwagger)

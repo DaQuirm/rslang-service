@@ -7,7 +7,7 @@ import Prelude hiding (Word)
 import Data.Text (Text)
 import GHC.Generics (Generic)
 import Data.Aeson (FromJSON, ToJSON)
-import Database.Selda (ID, SqlRow)
+import Database.Selda (ID)
 
 import Entity.Word (Word)
 import Entity.WordSet (WordSet)

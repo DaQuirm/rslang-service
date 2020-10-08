@@ -11,8 +11,7 @@ import Data.Text (Text)
 import Servant (type (:>), type (:<|>), Get, Post, JSON, ReqBody, Capture, Handler, (:<|>)(..))
 import RequiredQueryParam (RequiredQueryParam)
 
-import Database.Selda (ID, RowID, query, limit, select, restrict, (!), (.==), literal, toId, text, insertWithPK, def)
-import Database.Selda.PostgreSQL (withPostgreSQL, on)
+import Database.Selda (ID, query, limit, select, restrict, (!), (.==), literal, toId, text, insertWithPK, def)
 
 import ServiceState (tick)
 import App (API, AppT, modifyState)

@@ -5,10 +5,8 @@
 module Entity.WordSetWord where
 
 import Prelude hiding (Word, id)
-import Data.Text (Text)
 import GHC.Generics (Generic)
 import Database.Selda (ID, SqlRow, Table, table, Attr((:-)), foreignKey)
-import Data.Aeson (ToJSON, FromJSON)
 
 import Entity.Word (Word, wordsTable)
 import Entity.WordSet (WordSet, wordSetsTable)

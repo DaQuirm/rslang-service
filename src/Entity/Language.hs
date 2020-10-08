@@ -8,7 +8,7 @@ module Entity.Language where
 import Prelude hiding (id)
 import Data.Text (Text)
 import GHC.Generics (Generic)
-import Database.Selda (ID, SqlRow, Table, table, Attr((:-)), unique, foreignKey)
+import Database.Selda (SqlRow, Table, table, Attr((:-)), unique)
 import Data.Aeson (ToJSON, FromJSON)
 
 data Language = Language

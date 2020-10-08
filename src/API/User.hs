@@ -7,7 +7,6 @@ module API.User where
 
 import Servant (type (:>), type (:<|>), Get, Post, JSON, ReqBody, Handler, (:<|>)(..))
 import Database.Selda (ID, query, select, insertWithPK)
-import Database.Selda.PostgreSQL (withPostgreSQL, on)
 
 import ServiceState (tick)
 import App (AppT, API, modifyState)
